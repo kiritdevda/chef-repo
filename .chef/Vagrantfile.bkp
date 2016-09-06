@@ -1,0 +1,12 @@
+Vagrant.configure("2") do |config|
+config.vm.box = "opscode_centos-7.2_chef-provisionerless.box"
+config.omnibus.chef_version = :latest
+config.vm.network "private_network", ip: "10.0.0.11"
+config.vm.provision :chef_client do |chef|
+chef.provisioning_path = "/etc/chef"
+chef.chef_server_url = "https://api.chef.io/organizations/digits"
+chef.validation_key_path = "digits-validator.pem"
+chef.validation_client_name = "digits-validator"
+chef.node_name = "server"
+end
+end
